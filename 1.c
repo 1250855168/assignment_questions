@@ -117,7 +117,7 @@ void str1(const char *p)
 }
 /**
  * @brief 寻找 购买商品和目前的钱最匹配的状态 每种商品只有0/1次
- * 
+ *
  * @param Goods 商品样式的钱
  * @param money  身上的钱
  */
@@ -126,7 +126,7 @@ void Sta(int Goods[5], int money)
     int temp = 0;
     int t = _MAX_ENV;
     int b[5] = {0};
-    for (int i = 1; i < 32; i++)//所有的情况
+    for (int i = 1; i < 32; i++) //所有的情况
     {
         int a[5] = {0};
         a[0] = !!(i & (1 << 4));
@@ -135,23 +135,72 @@ void Sta(int Goods[5], int money)
         a[3] = !!(i & (1 << 1));
         a[4] = !!(i & (1 << 0));
         int sum = Goods[0] * a[0] + Goods[1] * a[1] + Goods[2] * a[2] + Goods[3] * a[3] + Goods[4] * a[4];
-        temp = abs(money - sum);//只考虑最匹配 不考虑商品价格超过钱
+        temp = abs(money - sum); //只考虑最匹配 不考虑商品价格超过钱
         if (temp < t)
         {
             for (int j = 0; j < 5; j++)
             {
-                b[j] = a[j];//给商品的情况保存下来
+                b[j] = a[j]; //给商品的情况保存下来
             }
             t = temp;
         }
     }
     for (int i = 0; i < 5; i++)
     {
-        printf("%d", b[i]);//打印情况
+        printf("%d", b[i]); //打印情况
     }
-    printf("\n");//打印最终花的钱
+    printf("\n"); //打印最终花的钱
     int s = Goods[0] * b[0] + Goods[1] * b[1] + Goods[2] * b[2] + Goods[3] * b[3] + Goods[4] * b[4];
     printf("%d\n", s);
+}
+
+typedef struct Square
+{
+    int x1;
+    int y1;
+    int x2;
+    int y2;
+} Square;
+
+void F()
+{
+    printf("please input N number square");
+    int n;
+    scanf("%d", &n);
+    Square *square = malloc(sizeof(Square) * n);
+    int temp = 0;
+    for (int i = 0; i < n; i++)
+    {
+        printf("请输入左上角坐标");
+        scanf("%d", square[i].x1); //左上角坐标
+        scanf("%d", square[i].y1);
+        printf("请输入右上角坐标");
+        scanf("%d", square[i].x2); //右下角坐标
+        scanf("%d", square[i].y2);
+    }
+    for (int j = 0; j < n - 1; n++)
+    {
+        for (int i = j; i < n - 1; i++)
+        {
+            if ((square[i].x1 < square[i + 1].x1) && (square[i].y1 < square[i + 1].y1) && (square[i].x2 > square[i + 1].x2) && (square[i].y2 > square[i + 1].y2))
+            {
+                temp = temp + (square[i + 1].x2 - square[i + 1].x1) * (square[i + 1].y2 - square[i + 1].y1);
+            }
+            if ((square[i].x1 > square[i + 1].x1) && (square[i].y1 > square[i + 1].y1) && (square[i].x2 < square[i + 1].x2) && (square[i].y2 < square[i + 1].y2))
+            {
+                temp = temp + (square[i].x2 - square[i].x1) * (square[i].y2 - square[i].y1);
+            }
+            if ((square[i].x1 < square[i + 1].x1) && (square[i].y1 > square[i + 1].y1) && (square[i].x2 < square[i + 1].x2) && (square[i].y2 > square[i + 1].y2))
+            {
+                temp = temp + (square[i + 1].x1 - square[i].x1) * (square[i].y1 - square[i + 1].y1) * (square[i + 1].x2 - square[i].x2) * (square[i].y2 - square[i + 1].y2);
+            }
+            if ((square[i].x1 > square[i + 1].x1) && (square[i].y1 < square[i + 1].y1) && (square[i].x2 > square[i + 1].x2) && (square[i].y2 < square[i + 1].y2))
+            {
+                temp = temp + (square[i].x1 - square[i - 1].x1) * (square[i + 1].y1 - square[i].y1) * (square[i].x2 - square[i + 1].x2) * (square[i + 1].y2 - square[i].y2);
+            }
+        }
+    }
+    printf("%d\n",temp);
 }
 
 int main()
