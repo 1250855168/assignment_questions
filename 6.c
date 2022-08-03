@@ -11,7 +11,6 @@ int Is(int x)
 
 int main()
 {
-
     printf("%d\n", Is(5));
     return 0;
 }
