@@ -124,7 +124,7 @@ void str1(const char *p)
 void Sta(int Goods[5], int money)
 {
     int temp = 0;
-    int t = _MAX_ENV;
+    int t = __DBL_MAX_EXP__;
     int b[5] = {0};
     for (int i = 1; i < 32; i++) //所有的情况
     {
@@ -172,11 +172,11 @@ void F()
     for (int i = 0; i < n; i++)
     {
         printf("请输入左上角坐标");
-        scanf("%d", square[i].x1); //左上角坐标
-        scanf("%d", square[i].y1);
+        scanf("%d",& square[i].x1); //左上角坐标
+        scanf("%d", &square[i].y1);
         printf("请输入右上角坐标");
-        scanf("%d", square[i].x2); //右下角坐标
-        scanf("%d", square[i].y2);
+        scanf("%d", &square[i].x2); //右下角坐标
+        scanf("%d",& square[i].y2);
     }
     for (int j = 0; j < n - 1; n++)
     {
